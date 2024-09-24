@@ -23,7 +23,7 @@ $mail->SMTPSecure = 'tls';
 $mail->Host = '';
 $mail->Port = 587;
 $mail->Username = '';
-$mail->Password = ''; // Şifrenizi güvenli bir şekilde saklayın
+$mail->Password = '';
 $mail->SetFrom($mail->Username, autoRegex($_POST['company_name']));
 $mail->AddAddress('uydevp@gmail.com');
 
@@ -41,7 +41,6 @@ $content = '
                 ' . generateTableRow('İşlem Tarihi ve Saati', date("d.m.Y H:i:s")) . '
 ';
 
-// Alt çizgi ile ayrılmış parametreleri büyük harfle başlatma
 foreach ($_POST as $key => $value) {
     if ($key !== 'title' && $key !== 'return_url') {
         $formattedKey = ucfirst(str_replace('_', ' ', $key)); // Alt çizgileri boşlukla değiştir ve ilk harfi büyük yap
@@ -59,7 +58,6 @@ $content .= '
 
 $mail->MsgHTML($content);
 
-// E-posta gönderiminde hata yönetimi
 try {
     if ($mail->Send()) {
         $returnUrl = isset($_POST['return_url']) ? $_POST['return_url'] : 'default_return_url.php';
